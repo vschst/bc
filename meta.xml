@@ -1,0 +1,38 @@
+<meta>
+    <info author="Victor Projects" version="1.0" name="Bans Control" showInResourceBrowser="true" type="script" />
+
+    <script src="try-catch.lua" type="shared" />
+    <script src="texts/texts.lua" type="shared" />
+    <script src="bc_server.lua" type="server" />
+    <script src="web/bc_web.lua" type="server" />
+
+    <html src="web/index.html" default="true"/>
+    <html src="web/css/bc_main.css" raw="false"/>
+    <html src="web/js/bc_update.js" raw="false"/>
+    <html src="web/js/bc_main.js" raw="false"/>
+    <html src="web/js/bc_events.js" raw="false"/>
+
+    <export function="webGetBansData" http="true" />
+    <export function="webGetMoreBansData" http="true" />
+    <export function="webAddNewBan" http="true" />
+    <export function="webRemoveBans" http="true" />
+    <export function="webEditBan" http="true" />
+    <export function="webUpdateAddedBans" http="true" />
+    <export function="webUpdateRemovedBans" http="true" />
+    <export function="webUpdateEditedBans" http="true" />
+    <export function="webGetTexts" http="true" />
+
+    <settings>
+        <!-- Web maximum number of bans to show. -->
+        <setting name="WebMaxNumberOfBansToShow" value="10" />
+    </settings>
+
+    <aclrequest>
+        <right name="function.addBan" access="true" />
+        <right name="function.removeBan" access="true" />
+        <right name="function.setBanNick" access="true" />
+        <right name="function.setBanAdmin" access="true" />
+        <right name="function.setBanReason" access="true" />
+        <right name="function.setUnbanTime" access="true" />
+    </aclrequest>
+</meta>

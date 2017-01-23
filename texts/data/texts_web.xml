@@ -1,0 +1,88 @@
+<Texts>
+    <Text Name="BackLinkText">Back</Text>
+
+    <Group Name="IndexPage">
+        <Text Name="NavTitle">Bans Control</Text>
+        <Text Name="AddNewBanLinkText">Add new ban</Text>
+
+        <Group Name="BansDataTable">
+            <Group Name="Head">
+                <Text Name="NickText">Nickname</Text>
+                <Text Name="AdminText">Banner</Text>
+                <Text Name="BanTimeText">Ban time</Text>
+                <Text Name="UnbanTimeText">Unban time</Text>
+                <Text Name="ReasonText">Reason</Text>
+                <Text Name="IPText">IP</Text>
+                <Text Name="SerialText">Serial</Text>
+                <Text Name="ChooseText">Choose</Text>
+            </Group>
+
+            <Group Name="Foot">
+                <Text Name="NoBansText">There are no bans...</Text>
+                <Text Name="ShowMoreBansLinkText">Show more bans</Text>
+            </Group>
+        </Group>
+
+        <Group Name="Footer">
+            <Text Name="BansShownText">Shown $bans_shown_element / $bans_all_element bans</Text>
+            <Text Name="EditBanBtnText">Edit</Text>
+            <Text Name="RemoveBansBtnText">Remove</Text>
+            <Text Name="RemoveBansBtnSelectedText">Remove ($n)</Text>
+        </Group>
+    </Group>
+
+    <Group Name="AddNewBanPage">
+        <Text Name="NavTitle">Add new ban</Text>
+
+        <Group Name="Container">
+            <Text Name="IPText">IP:</Text>
+            <Text Name="SerialText">Serial:</Text>
+            <Text Name="ReasonText">Reason:</Text>
+            <Text Name="UnbanTimeText">Unban time:</Text>
+            <Text Name="UnbanInfinityTimeText">Permanent ban time</Text>
+        </Group>
+
+        <Group Name="Error">
+            <Text Name="IPAndSerialEmptyText">IP and Serial empty!</Text>
+            <Text Name="ReasonTooLongText">Ban reason is too long!</Text>
+            <Text Name="UnbanTimeEmptyText">Unban time empty!</Text>
+            <Text Name="ServerErrorText">Failed to add ban! Error code: $error_code</Text>
+        </Group>
+
+        <Text Name="AddBtnText">Add</Text>
+
+        <Text Name="SuccessfullyText">Ban has been successfully added!</Text>
+    </Group>
+
+    <Group Name="EditBanPage">
+        <Text Name="NavTitle">Edit ban</Text>
+
+        <Group Name="Container">
+            <Text Name="BanNickText">Nickname:</Text>
+            <Text Name="IPText">IP:</Text>
+            <Text Name="SerialText">Serial:</Text>
+            <Text Name="BanTimeText">Ban time:</Text>
+
+            <Text Name="AdminText">Banner:</Text>
+            <Text Name="ReasonText">Reason:</Text>
+            <Text Name="UnbanTimeText">Unban time:</Text>
+            <Text Name="UnbanInfinityTimeText">Permanent ban time</Text>
+        </Group>
+
+        <Group Name="Error">
+            <Text Name="ReasonTooLongText">Ban reason is too long!</Text>
+            <Text Name="UnbanTimeEmptyText">Unban time empty!</Text>
+            <Text Name="ServerErrorText">Failed to edit ban! Error code: $error_code</Text>
+        </Group>
+
+        <Text Name="EditBtnText">Edit</Text>
+        <Text Name="RemoveBtnText">Remove</Text>
+
+        <Text Name="SuccessfullyText">Ban has been successfully edited!</Text>
+    </Group>
+
+    <Group Name="RemoveBans">
+        <Text Name="ConfirmText">Are you sure you want to remove selected bans?</Text>
+        <Text Name="SuccessfullyText">Selected bans has been successfully removed!</Text>
+    </Group>
+</Texts>

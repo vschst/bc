@@ -1,0 +1,36 @@
+.bc-page-content {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+}
+.bc-page-container {
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    width: 100%;
+    background-color: #bebebe;
+}
+.bc-bansdata-container {
+    position: absolute;
+    top: 0px;
+    bottom: 50px;
+    width: 100%;
+    text-align: center;
+    background-color: #f0f0f0;
+    overflow: auto;
+}
+.bc-thead-text-center thead th {
+    text-align: center;
+}
+.bc-bansdata-footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #e4e4e4;
+}
+.bc-hide {
+    display: none;
+}
