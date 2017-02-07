@@ -54,12 +54,12 @@ function removeBansData(BansTimeData) {
 function editBansData(ChangedBansData) {
     var banTime;
 
-    for (var сbdKey in ChangedBansData) {
-        if (ChangedBansData[сbdKey].hasOwnProperty("BanTime") == false) {
-            throw new SyntaxError("Error with function 'editBansData' (Key: "+ ebdKey +", Ban time undefined)");
+    for (var cbdKey in ChangedBansData) {
+        if (ChangedBansData[cbdKey].hasOwnProperty("BanTime") == false) {
+            throw new SyntaxError("Error with function 'editBansData' (Key: "+ cbdKey +", Ban time undefined)");
         }
-        else if (ChangedBansData[сbdKey].hasOwnProperty("Data") == false) {
-            throw new SyntaxError("Error with function 'editBansData' (Key: "+ ebdKey +", Data undefined)");
+        else if (ChangedBansData[cbdKey].hasOwnProperty("Data") == false) {
+            throw new SyntaxError("Error with function 'editBansData' (Key: "+ cbdKey +", Data undefined)");
         }
 
         banTime = ChangedBansData[cbdKey].BanTime;
