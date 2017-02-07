@@ -1,6 +1,6 @@
 'use strict';
 
-var Bans = {Load: false, Data: {}, Length: 0, NumberOfAdmins: 0};
+var Bans = {Load: false, Data: {}, Length: 0, NumberOfBans: 0};
 
 var Pages = {
     Index: {
@@ -20,13 +20,13 @@ var Actions = {Internal: {Execute: false}, External: {Execute: false}}
 
 function loadBansData(LoadData) {
     for (var ldKey in LoadData) {
-        if (LoadData[ldKey].BanTime == undefined) {
+        if (LoadData[ldKey].hasOwnProperty("BanTime") == false) {
             throw new SyntaxError("Error with function 'loadBansData' (Key: "+ ldKey +", Login undefined)");
         }
-        else if (LoadData[ldKey].Data == undefined) {
+        else if (LoadData[ldKey].hasOwnProperty("Data") == false) {
             throw new SyntaxError("Error with function 'loadBansData' (Key: "+ ldKey +", Data undefined)");
         }
-        else if ((LoadData[ldKey].Data.IP == undefined) && (LoadData[ldKey].Data.Serial == undefined)) {
+        else if ((LoadData[ldKey].Data.hasOwnProperty("IP") == false) && (LoadData[ldKey].Data.hasOwnProperty("Serial") == false)) {
             throw new SyntaxError("Error with function 'loadBansData' (Key: "+ ldKey +", IP and Serial undefined!)");
         }
 
@@ -39,7 +39,7 @@ function loadBansData(LoadData) {
 
 function removeBansData(BansTimeData) {
     for (var btdKey in BansTimeData) {
-        if (Bans.Data[BansTimeData[btdKey]] != undefined) {
+        if (Bans.Data.hasOwnProperty(BansTimeData[btdKey]) == true) {
             delete Bans.Data[BansTimeData[btdKey]];
 
             Bans.Length--;
@@ -54,21 +54,21 @@ function removeBansData(BansTimeData) {
 function editBansData(ChangedBansData) {
     var banTime;
 
-    for (var ebdKey in ChangedBansData) {
-        if (ChangedBansData[ebdKey].BanTime == undefined) {
-            throw new SyntaxError("Error with function 'editAdminData' (Key: "+ ebdKey +", Ban time undefined)");
+    for (var сbdKey in ChangedBansData) {
+        if (ChangedBansData[сbdKey].hasOwnProperty("BanTime") == false) {
+            throw new SyntaxError("Error with function 'editBansData' (Key: "+ ebdKey +", Ban time undefined)");
         }
-        else if (ChangedBansData[ebdKey].Data == undefined) {
-            throw new SyntaxError("Error with function 'editAdminData' (Key: "+ ebdKey +", Data undefined)");
+        else if (ChangedBansData[сbdKey].hasOwnProperty("Data") == false) {
+            throw new SyntaxError("Error with function 'editBansData' (Key: "+ ebdKey +", Data undefined)");
         }
 
-        banTime = ChangedBansData[ebdKey].BanTime;
+        banTime = ChangedBansData[cbdKey].BanTime;
 
-        if (Bans.Data[banTime] != undefined) {
+        if (Bans.Data.hasOwnProperty(banTime) == true) {
             //Nick
-            if (ChangedBansData[ebdKey].Data.hasOwnProperty('Nick') == true) {
-                if (ChangedBansData[ebdKey].Data.Nick != false) {
-                    Bans.Data[banTime].Nick = ChangedBansData[ebdKey].Data.Nick;
+            if (ChangedBansData[cbdKey].Data.hasOwnProperty('Nick') == true) {
+                if (ChangedBansData[cbdKey].Data.Nick != false) {
+                    Bans.Data[banTime].Nick = ChangedBansData[cbdKey].Data.Nick;
                 }
                 else {
                     delete Bans.Data[banTime].Nick;
@@ -76,9 +76,9 @@ function editBansData(ChangedBansData) {
             }
 
             //Admin
-            if (ChangedBansData[ebdKey].Data.hasOwnProperty('Admin') == true) {
-                if (ChangedBansData[ebdKey].Data.Admin != false) {
-                    Bans.Data[banTime].Admin = ChangedBansData[ebdKey].Data.Admin;
+            if (ChangedBansData[cbdKey].Data.hasOwnProperty('Admin') == true) {
+                if (ChangedBansData[cbdKey].Data.Admin != false) {
+                    Bans.Data[banTime].Admin = ChangedBansData[cbdKey].Data.Admin;
                 }
                 else {
                     delete Bans.Data[banTime].Admin;
@@ -86,9 +86,9 @@ function editBansData(ChangedBansData) {
             }
 
             //Reason
-            if (ChangedBansData[ebdKey].Data.hasOwnProperty('Reason') == true) {
-                if (ChangedBansData[ebdKey].Data.Reason != false) {
-                    Bans.Data[banTime].Reason = ChangedBansData[ebdKey].Data.Reason;
+            if (ChangedBansData[cbdKey].Data.hasOwnProperty('Reason') == true) {
+                if (ChangedBansData[cbdKey].Data.Reason != false) {
+                    Bans.Data[banTime].Reason = ChangedBansData[cbdKey].Data.Reason;
                 }
                 else {
                     delete Bans.Data[banTime].Reason;
@@ -96,9 +96,9 @@ function editBansData(ChangedBansData) {
             }
 
             //Unban time
-            if (ChangedBansData[ebdKey].Data.hasOwnProperty('UnbanTime') == true) {
-                if (ChangedBansData[ebdKey].Data.UnbanTime != false) {
-                    Bans.Data[banTime].UnbanTime = ChangedBansData[ebdKey].Data.UnbanTime;
+            if (ChangedBansData[cbdKey].Data.hasOwnProperty('UnbanTime') == true) {
+                if (ChangedBansData[cbdKey].Data.UnbanTime != false) {
+                    Bans.Data[banTime].UnbanTime = ChangedBansData[cbdKey].Data.UnbanTime;
                 }
                 else {
                     delete Bans.Data[banTime].UnbanTime;
@@ -132,7 +132,7 @@ function getBansDataTableRow(rowNumber, banTime, BanData) {
     //Nick
     var banNickElement = $('<td class="ban-nick"></td>');
 
-    if (BanData.Nick != undefined) {
+    if (BanData.hasOwnProperty("Nick") == true) {
         RowTR.append(banNickElement.html($("<b></b>").html(hexToHtml(BanData.Nick))));
     }
     else {
@@ -142,7 +142,7 @@ function getBansDataTableRow(rowNumber, banTime, BanData) {
     //Banner
     var banAdminElement = $('<td class="ban-admin"></td>');
 
-    if (BanData.Admin != undefined) {
+    if (BanData.hasOwnProperty("Admin") == true) {
         RowTR.append(banAdminElement.html(hexToHtml(BanData.Admin)));
     }
     else {
@@ -157,7 +157,7 @@ function getBansDataTableRow(rowNumber, banTime, BanData) {
     //Unban time
     var banUnbanTimeElement = $('<td class="ban-unban-time"></td>');
 
-    if (BanData.UnbanTime != undefined) {
+    if (BanData.hasOwnProperty("UnbanTime") == true) {
         var unbanTimeDate = moment.unix(BanData.UnbanTime);
 
         RowTR.append(banUnbanTimeElement.text(unbanTimeDate.format("DD/MM/YYYY hh:mm")));
@@ -169,7 +169,7 @@ function getBansDataTableRow(rowNumber, banTime, BanData) {
     //Reason
     var banReasonElement = $('<td class="ban-reason"></td>');
 
-    if (BanData.Reason != undefined) {
+    if (BanData.hasOwnProperty("Reason") == true) {
         RowTR.append(banReasonElement.text(formatBanReasonString(BanData.Reason)));
     }
     else {
@@ -179,7 +179,7 @@ function getBansDataTableRow(rowNumber, banTime, BanData) {
     //IP
     var banIPElement = $('<td></td>');
 
-    if (BanData.IP != undefined) {
+    if (BanData.hasOwnProperty("IP") == true) {
         RowTR.append(banIPElement.text(BanData.IP));
     }
     else {
@@ -189,7 +189,7 @@ function getBansDataTableRow(rowNumber, banTime, BanData) {
     //Serial
     var banSerialElement = $('<td></td>');
 
-    if (BanData.Serial != undefined) {
+    if (BanData.hasOwnProperty("Serial") == true) {
         RowTR.append(banSerialElement.text(BanData.Serial));
     }
     else {
@@ -246,13 +246,13 @@ function removeBansDataTableRow(banTime, lastRemovedRow) {
 }
 
 
-function editBansDataTableRow(banTime, EditedBanData) {
+function editBansDataTableRow(banTime, ChangedBanData) {
     var banRow = $("#"+ banTime);
 
     //Nick
-    if (EditedBanData.hasOwnProperty('Nick') == true) {
-        if (EditedBanData.Nick != false) {
-            banRow.find(".ban-nick").html($("<b></b>").html(hexToHtml(EditedBanData.Nick)));
+    if (ChangedBanData.hasOwnProperty('Nick') == true) {
+        if (ChangedBanData.Nick != false) {
+            banRow.find(".ban-nick").html($("<b></b>").html(hexToHtml(ChangedBanData.Nick)));
         }
         else {
             banRow.find(".ban-nick").html(getTimesElement());
@@ -260,9 +260,9 @@ function editBansDataTableRow(banTime, EditedBanData) {
     }
 
     //Admin
-    if (EditedBanData.hasOwnProperty('Admin') == true) {
-        if (EditedBanData.Admin != false) {
-            banRow.find(".ban-admin").html(hexToHtml(EditedBanData.Admin));
+    if (ChangedBanData.hasOwnProperty('Admin') == true) {
+        if (ChangedBanData.Admin != false) {
+            banRow.find(".ban-admin").html(hexToHtml(ChangedBanData.Admin));
         }
         else {
             banRow.find(".ban-admin").html(getTimesElement());
@@ -270,9 +270,9 @@ function editBansDataTableRow(banTime, EditedBanData) {
     }
 
     //Reason
-    if (EditedBanData.hasOwnProperty('Reason') == true) {
-        if (EditedBanData.Reason != false) {
-            banRow.find(".ban-reason").text(formatBanReasonString(EditedBanData.Reason));
+    if (ChangedBanData.hasOwnProperty('Reason') == true) {
+        if (ChangedBanData.Reason != false) {
+            banRow.find(".ban-reason").text(formatBanReasonString(ChangedBanData.Reason));
         }
         else {
             banRow.find(".ban-reason").html(getTimesElement());
@@ -280,9 +280,9 @@ function editBansDataTableRow(banTime, EditedBanData) {
     }
 
     //Unban time
-    if (EditedBanData.hasOwnProperty('UnbanTime') == true) {
-        if (EditedBanData.UnbanTime != false) {
-            var unbanTimeDate = moment.unix(EditedBanData.UnbanTime);
+    if (ChangedBanData.hasOwnProperty('UnbanTime') == true) {
+        if (ChangedBanData.UnbanTime != false) {
+            var unbanTimeDate = moment.unix(ChangedBanData.UnbanTime);
 
             banRow.find(".ban-unban-time").text(unbanTimeDate.format("DD/MM/YYYY hh:mm"));
         }

@@ -28,17 +28,17 @@ function updateAddedBans() {
                         if (ResponseObject == undefined) {
                             throw new SyntaxError("Error with function 'webUpdateAddedBans' (Response undefined)");
                         }
-                        else if (ResponseObject.ErrorCode == undefined) {
-                            throw new SyntaxError("Error with function 'webUpdateAddedBans' ('ErrorCode' incorrect)");
+                        else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                            throw new SyntaxError("Error with function 'webUpdateAddedBans' ('ErrorCode' undefined)");
                         }
                         else if (ResponseObject.ErrorCode != 0) {
                             throw new ReferenceError("Error with function 'webUpdateAddedBans' (Error code: "+ ResponseObject.ErrorCode +")");
                         }
-                        else if ((ResponseObject.Response.Data == undefined) || (Array.isArray(ResponseObject.Response.Data) == false)) {
-                            throw new SyntaxError("Error with function 'webUpdateAddedBans' (Response 'Data' incorrect)");
+                        else if ((ResponseObject.Response.hasOwnProperty("Data") == false) || (Array.isArray(ResponseObject.Response.Data) == false)) {
+                            throw new SyntaxError("Error with function 'webUpdateAddedBans' ('Response.Data' incorrect)");
                         }
-                        else if ((ResponseObject.Response.NumberOfBans == undefined) || (Number.isInteger(ResponseObject.Response.NumberOfBans) == false)) {
-                            throw new SyntaxError("Error with function 'webUpdateAddedBans' (Response 'NumberOfBans' incorrect)");
+                        else if ((ResponseObject.Response.hasOwnProperty("NumberOfBans") == false) || (Number.isInteger(ResponseObject.Response.NumberOfBans) == false)) {
+                            throw new SyntaxError("Error with function 'webUpdateAddedBans' ('Response.NumberOfBans' incorrect)");
                         }
 
                         var AddedBansLoadData = ResponseObject.Response.Data;
@@ -112,14 +112,14 @@ function updateRemovedBans() {
                         if (ResponseObject == undefined) {
                             throw new SyntaxError("Error with function 'webUpdateRemovedBans' (Response undefined)");
                         }
-                        else if (ResponseObject.ErrorCode == undefined) {
-                            throw new SyntaxError("Error with function 'webUpdateRemovedBans' ('ErrorCode' incorrect)");
+                        else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                            throw new SyntaxError("Error with function 'webUpdateRemovedBans' ('ErrorCode' undefined)");
                         }
-                        if (ResponseObject.ErrorCode != 0) {
+                        else if (ResponseObject.ErrorCode != 0) {
                             throw new ReferenceError("Error with function 'webUpdateRemovedBans' (Error code: "+ ResponseObject.ErrorCode +")");
                         }
-                        else if ((ResponseObject.Response == undefined) || (Array.isArray(ResponseObject.Response) == false)) {
-                            throw new SyntaxError("Error with function 'webUpdateRemovedBans' (Response incorrect)");
+                        else if ((ResponseObject.hasOwnProperty("Response") == false) || (Array.isArray(ResponseObject.Response) == false)) {
+                            throw new SyntaxError("Error with function 'webUpdateRemovedBans' ('Response' incorrect)");
                         }
 
                         var RemovedBansTimeData = ResponseObject.Response;
@@ -186,19 +186,19 @@ function updateEditedBans() {
                     if (ResponseObject == undefined) {
                         throw new SyntaxError("Error with function 'webUpdateEditedBans' (Response undefined)");
                     }
-                    else if (ResponseObject.ErrorCode == undefined) {
-                        throw new SyntaxError("Error with function 'webUpdateEditedBans' ('ErrorCode' incorrect)");
+                    else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                        throw new SyntaxError("Error with function 'webUpdateEditedBans' ('ErrorCode' undefined)");
                     }
                     if (ResponseObject.ErrorCode != 0) {
-                        if (ResponseObject.ErrorData != undefined) {
+                        if (ResponseObject.hasOwnProperty("ErrorData") == true) {
                             throw new ReferenceError("Error with function 'webUpdateEditedBans' (Error code: " + ResponseObject.ErrorCode + ", Key: "+ ResponseObject.ErrorData.Key +")");
                         }
                         else {
                             throw new ReferenceError("Error with function 'webUpdateEditedBans' (Error code: " + ResponseObject.ErrorCode + ")");
                         }
                     }
-                    else if ((ResponseObject.Response == undefined) || (Array.isArray(ResponseObject.Response) == false)) {
-                        throw new SyntaxError("Error with function 'webUpdateEditedBans' (Response incorrect)");
+                    else if ((ResponseObject.hasOwnProperty("Response") == false) || (Array.isArray(ResponseObject.Response) == false)) {
+                        throw new SyntaxError("Error with function 'webUpdateEditedBans' ('Response' incorrect)");
                     }
 
                     var ChangedBansData = ResponseObject.Response;

@@ -16,17 +16,20 @@ $("#bansdata-table").ready(
                     if (ResponseObject == undefined) {
                         throw new SyntaxError("Error with function 'webGetBansData' (Response undefined)");
                     }
-                    else if (ResponseObject.ErrorCode == undefined) {
-                        throw new SyntaxError("Error with function 'webGetBansData' ('ErrorCode' incorrect)");
+                    else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                        throw new SyntaxError("Error with function 'webGetBansData' ('ErrorCode' undefined)");
                     }
                     else if (ResponseObject.ErrorCode != 0) {
                         throw new ReferenceError("Error with function 'webGetBansData' (Error code: "+ ResponseObject.ErrorCode +")");
                     }
-                    else if ((ResponseObject.Response.Data == undefined) || (Array.isArray(ResponseObject.Response.Data) == false)) {
-                        throw new SyntaxError("Error with function 'webGetBansData' (Response 'Data' incorrect)");
+                    else if (ResponseObject.hasOwnProperty("Response") == false) {
+                        throw new SyntaxError("Error with function 'webGetBansData' ('Response' undefined)");
                     }
-                    else if ((ResponseObject.Response.NumberOfBans == undefined) || (Number.isInteger(ResponseObject.Response.NumberOfBans) == false)) {
-                        throw new SyntaxError("Error with function 'webGetBansData' (Response 'NumberOfBans' incorrect)");
+                    else if ((ResponseObject.Response.hasOwnProperty("Data") == false) || (Array.isArray(ResponseObject.Response.Data) == false)) {
+                        throw new SyntaxError("Error with function 'webGetBansData' ('Response.Data' incorrect)");
+                    }
+                    else if ((ResponseObject.Response.hasOwnProperty("NumberOfBans") == false) || (Number.isInteger(ResponseObject.Response.NumberOfBans) == false)) {
+                        throw new SyntaxError("Error with function 'webGetBansData' ('Response.NumberOfBans' incorrect)");
                     }
 
                     var BansLoadData = ResponseObject.Response.Data;
@@ -95,17 +98,20 @@ $("#show-more-bans-link").click(
                         if (ResponseObject == undefined) {
                             throw new SyntaxError("Error with function 'webGetMoreBansData' (Response undefined)");
                         }
-                        else if (ResponseObject.ErrorCode == undefined) {
-                            throw new SyntaxError("Error with function 'webGetMoreBansData' ('ErrorCode' incorrect)");
+                        else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                            throw new SyntaxError("Error with function 'webGetMoreBansData' ('ErrorCode' undefined)");
                         }
                         else if (ResponseObject.ErrorCode != 0) {
                             throw new ReferenceError("Error with function 'webGetMoreBansData' (Error code: "+ ResponseObject.ErrorCode +")");
                         }
-                        else if ((ResponseObject.Response.Data == undefined) || (Array.isArray(ResponseObject.Response.Data) == false)) {
-                            throw new SyntaxError("Error with function 'webGetMoreBansData' (Response 'Data' incorrect)");
+                        else if (ResponseObject.hasOwnProperty("Response") == false) {
+                            throw new SyntaxError("Error with function 'webGetMoreBansData' ('Response' undefined)");
                         }
-                        else if ((ResponseObject.Response.NumberOfBans == undefined) || (Number.isInteger(ResponseObject.Response.NumberOfBans) == false)) {
-                            throw new SyntaxError("Error with function 'webGetBansData' (Response 'NumberOfBans' incorrect)");
+                        else if ((ResponseObject.Response.hasOwnProperty("Data") == false) || (Array.isArray(ResponseObject.Response.Data) == false)) {
+                            throw new SyntaxError("Error with function 'webGetMoreBansData' ('Response.Data' incorrect)");
+                        }
+                        else if ((ResponseObject.Response.hasOwnProperty("NumberOfBans") == false) || (Number.isInteger(ResponseObject.Response.NumberOfBans) == false)) {
+                            throw new SyntaxError("Error with function 'webGetMoreBansData' ('Response.NumberOfBans' incorrect)");
                         }
 
                         var lastBansDataLength = Bans.Length;
@@ -275,15 +281,15 @@ $("#add-new-ban-btn").click(
                             if (ResponseObject == undefined) {
                                 throw new SyntaxError("Error with function 'webAddNewBan' (Response undefined)");
                             }
-                            else if (ResponseObject.ErrorCode == undefined) {
-                                throw new SyntaxError("Error with function 'webAddNewBan' ('ErrorCode' incorrect)");
+                            else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                                throw new SyntaxError("Error with function 'webAddNewBan' ('ErrorCode' undefined)");
                             }
                             else if (ResponseObject.ErrorCode != 0) {
                                 alert(BCJSTexts.AddNewBanPage.Error.ServerErrorText.replace("$error_code", ResponseObject.ErrorCode));
 
                                 throw new ReferenceError("Error with function 'webAddNewBan' (Error code: "+ ResponseObject.ErrorCode +")");
                             }
-                            else if ((ResponseObject.Response == undefined) || (typeof ResponseObject.Response != "object")) {
+                            else if ((ResponseObject.hasOwnProperty("Response") == false) || (typeof ResponseObject.Response != "object")) {
                                 throw new SyntaxError("Error with function 'webAddNewBan' ('Response' incorrect)");
                             }
 
@@ -360,11 +366,11 @@ $("#remove-bans-btn, #edit-remove-ban-btn").click(
                             if (ResponseObject == undefined) {
                                 throw new SyntaxError("Error with function 'webRemoveBans' (Response undefined)");
                             }
-                            if (ResponseObject.ErrorCode == undefined) {
-                                throw new SyntaxError("Error with function 'webRemoveBans' ('ErrorCode' incorrect)");
+                            else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                                throw new SyntaxError("Error with function 'webRemoveBans' ('ErrorCode' undefined)");
                             }
                             else if (ResponseObject.ErrorCode != 0) {
-                                if (ResponseObject.ErrorData != undefined) {
+                                if (ResponseObject.hasOwnProperty("ErrorData") == true) {
                                     throw new ReferenceError("Error with function 'webRemoveBans' (Error code: " + ResponseObject.ErrorCode + ", Key: "+ ResponseObject.ErrorData.Key +", Time: "+ ResponseObject.ErrorData.Time +")");
                                 }
                                 else {
@@ -391,7 +397,7 @@ $("#remove-bans-btn, #edit-remove-ban-btn").click(
 
 
                             if (Bans.Length == 0) {
-                                $("#no-admins").css("display", "table-row");
+                                $("#no-bans").css("display", "table-row");
                                 $("#show-more-bans").css("display", "none");
                             }
 
@@ -449,7 +455,7 @@ $("#edit-ban-btn").click(
         if (Bans.Load == true) {
             var banTime = $('input[name="ban-check"]:checked').val();
 
-            if(Bans.Data[banTime] != undefined) {
+            if(Bans.Data.hasOwnProperty(banTime) == true) {
                 selectPage("EditBan");
 
                 Pages.EditBan.BanTime = banTime;
@@ -459,7 +465,7 @@ $("#edit-ban-btn").click(
 
                 $("#edit-ban-page").removeClass("bc-hide");
 
-                if (Bans.Data[banTime].IP != undefined) {
+                if (Bans.Data[banTime].hasOwnProperty("IP") == true) {
                     $("#edit-ban-ip").parent().removeClass("bc-hide");
                     $("#edit-ban-ip").html($("<b>").text(Bans.Data[banTime].IP));
                 }
@@ -467,7 +473,7 @@ $("#edit-ban-btn").click(
                     $("#edit-ban-ip").parent().addClass("bc-hide");
                 }
 
-                if (Bans.Data[banTime].Serial != undefined) {
+                if (Bans.Data[banTime].hasOwnProperty("Serial") == true) {
                     $("#edit-ban-serial").parent().removeClass("bc-hide");
                     $("#edit-ban-serial").html($("<b>").text(Bans.Data[banTime].Serial));
                 }
@@ -480,21 +486,21 @@ $("#edit-ban-btn").click(
                 $("#edit-ban-ban-time").text(banTimeDate.format("DD/MM/YYYY hh:mm:ss"));
 
 
-                if (Bans.Data[banTime].Nick != undefined) {
+                if (Bans.Data[banTime].hasOwnProperty("Nick") == true) {
                     $("#edit-ban-nick").val(Bans.Data[banTime].Nick);
                 }
 
-                if (Bans.Data[banTime].Admin != undefined) {
+                if (Bans.Data[banTime].hasOwnProperty("Admin") == true) {
                     $("#edit-ban-admin").val(Bans.Data[banTime].Admin);
                 }
 
-                if (Bans.Data[banTime].Reason != undefined) {
+                if (Bans.Data[banTime].hasOwnProperty("Reason") == true) {
                     $("#edit-ban-reason").val(Bans.Data[banTime].Reason);
                 }
 
                 removeInputDanger("edit-ban-reason");
 
-                if (Bans.Data[banTime].UnbanTime != undefined) {
+                if (Bans.Data[banTime].hasOwnProperty("UnbanTime") == true) {
                     var unbanTimeDate = moment.unix(Bans.Data[banTime].UnbanTime);
 
                     $("#edit-ban-unban-time").val(unbanTimeDate.format("YYYY-MM-DDThh:mm:ss")).prop("disabled", false);
@@ -576,15 +582,15 @@ $("#edit-edit-ban-btn").click(
                             if (ResponseObject == undefined) {
                                 throw new SyntaxError("Error with function 'webEditBan' (Response undefined)");
                             }
-                            else if (ResponseObject.ErrorCode == undefined) {
-                                throw new SyntaxError("Error with function 'webEditBan' ('ErrorCode' incorrect)");
+                            else if (ResponseObject.hasOwnProperty("ErrorCode") == false) {
+                                throw new SyntaxError("Error with function 'webEditBan' ('ErrorCode' undefined)");
                             }
                             else if (ResponseObject.ErrorCode != 0) {
                                 alert(BCJSTexts.EditBanPage.Error.ServerErrorText.replace("$error_code", ResponseObject.ErrorCode));
 
                                 throw new ReferenceError("Error with function 'webEditBan' (Error code: "+ ResponseObject.ErrorCode +")");
                             }
-                            else if ((ResponseObject.Response == undefined) || (typeof ResponseObject.Response != "object")) {
+                            else if ((ResponseObject.hasOwnProperty("Response") == false) || (typeof ResponseObject.Response != "object")) {
                                 throw new SyntaxError("Error with function 'webEditBan' ('Response' incorrect)");
                             }
 
